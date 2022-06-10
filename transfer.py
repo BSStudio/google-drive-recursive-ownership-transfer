@@ -71,9 +71,7 @@ def process_all_files(service, new_owner, folder_id, folder_name=None):
 
         except HttpError as e:
             print("An error occurred: {}".format(e))
-            exit(-1)
-
-    BATCH.execute()
+            break
 
 
 def main():
@@ -87,6 +85,7 @@ def main():
     print(f"Changing all files to owner '{args.owner}'")
     service = get_drive_service()
     process_all_files(service, args.owner, args.folder)
+    BATCH.execute()
 
 
 if __name__ == "__main__":
