@@ -17,7 +17,7 @@ CURRENT LIMITATION: Due to e-mail sending the script can only process ~2500 file
 
 ### Setup
 
-```shell
+```commandline
 git clone https://github.com/BSStudio/google-drive-recursive-ownership-transfer
 pip install -r requirements.txt
 ```
@@ -26,11 +26,11 @@ pip install -r requirements.txt
 
 First, replace the sample `client_secrets.json` with your own [client secrets](https://github.com/googleapis/google-api-python-client/blob/master/docs/client-secrets.md). Don't forget to enable Drive API for your project.
 
-```shell
+```commandline
 python transfer.py [-h] -o OWNER [-f FOLDER]
 ```
 
-```shell
+```
 options:
   -h, --help            show this help message and exit
   -o OWNER, --owner OWNER
