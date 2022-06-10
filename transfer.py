@@ -47,7 +47,7 @@ def batch_add(service, file_id, new_owner):
     BATCH_SIZE += 1
     if BATCH_SIZE == MAXIMUM_BATCH_SIZE:
         BATCH.execute()
-        create_batch()
+        create_batch(service)
 
 
 def process_all_files(service, new_owner, folder_id, folder_name=None):
