@@ -58,7 +58,8 @@ def process_all_files(service, new_owner, folder_id, folder_name=None):
     next_page_token = None
     while True:
         try:
-            items = service.files().list(q=f"'{folder_id}' in parents", fields="files(id, name, mimeType, owners)",
+            items = service.files().list(q=f"'{folder_id}' in parents",
+                                         fields="files(id, name, mimeType, owners), nextPageToken",
                                          pageToken=next_page_token).execute()
             for item in items["files"]:
                 if item["mimeType"] == "application/vnd.google-apps.folder":
