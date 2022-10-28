@@ -57,3 +57,16 @@ options:
   -f FOLDER, --folder FOLDER
                         ID of the Google Drive folder. The user's root directory will be used if left empty.
 ```
+
+#### Listing owners with number of files owned by them
+
+```commandline
+python count.py [-h] [-f FOLDER]
+```
+
+```
+options:
+  -h, --help            show this help message and exit
+  -f FOLDER, --folder FOLDER
+                        ID of the Google Drive folder. The user's root directory will be used if left empty.
+```
