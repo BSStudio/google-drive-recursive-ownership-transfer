@@ -19,7 +19,7 @@ def get_drive_service():
 
 def callback(request_id, response, exception):
     if exception:
-        print(exception)
+        print(f"\n{exception}")
     else:
         print("[✓]", end="")
 
@@ -46,14 +46,16 @@ def batch_add(service, file_id, new_owner):
     global BATCH_SIZE
     BATCH_SIZE += 1
     if BATCH_SIZE == MAXIMUM_BATCH_SIZE:
+        print("\n\nMaximum batch size reached. Executing batch...", end=" ")
         BATCH.execute()
+        print("\nBatch execution finished.")
         create_batch(service)
 
 
 def process_all_files(service, new_owner, folder_id, folder_name=None):
     if not folder_name:
         folder_name = service.files().get(fileId=folder_id).execute().get("name")
-    print(f"\nGathering files in folder '{folder_name}'...")
+    print(f"\nGathering files in folder '{folder_name}'...", end="")
 
     next_page_token = None
     while True:
@@ -71,7 +73,7 @@ def process_all_files(service, new_owner, folder_id, folder_name=None):
                 break
 
         except HttpError as e:
-            print(f"An error occurred: {e}")
+            print(f"\nAn error occurred: {e}")
             break
 
 
@@ -87,7 +89,9 @@ def main():
     service = get_drive_service()
     process_all_files(service, args.owner, args.folder)
     if BATCH:
+        print("\n\nExecuting final batch...", end=" ")
         BATCH.execute()
+        print("\nBatch execution finished.")
 
 
 if __name__ == "__main__":

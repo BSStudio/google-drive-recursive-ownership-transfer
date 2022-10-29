@@ -36,7 +36,7 @@ def process_all_files(service, folder_id):
                 break
 
         except HttpError as e:
-            print(f"An error occurred: {e}")
+            print(f"\nAn error occurred: {e}")
             break
 
 
@@ -50,7 +50,7 @@ def main():
     service = get_drive_service()
     print("Counting", end="")
     process_all_files(service, args.folder)
-    print("[✓]")
+    print(" [✓]")
     print(json.dumps(dict(Counter(OWNERS)), sort_keys=True, indent=4))
 
 

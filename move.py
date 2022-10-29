@@ -19,7 +19,7 @@ def get_drive_service():
 
 def callback(request_id, response, exception):
     if exception:
-        print(exception)
+        print(f"\n{exception}")
     else:
         print("[✓]", end="")
 
@@ -43,7 +43,9 @@ def batch_add(service, file_id, destination):
     global BATCH_SIZE
     BATCH_SIZE += 1
     if BATCH_SIZE == MAXIMUM_BATCH_SIZE:
+        print("\n\nMaximum batch size reached. Executing batch...", end=" ")
         BATCH.execute()
+        print("\nBatch execution finished.")
         create_batch(service)
 
 
@@ -84,7 +86,7 @@ def remove_empty_folders(service, folder_id_list):
 def process_all_files(service, destination_folder_id, folder_id, folder_name=None, destination_folder_structure=None):
     if not folder_name:
         folder_name = service.files().get(fileId=folder_id).execute().get("name")
-    print(f"\nGathering files in folder '{folder_name}'...")
+    print(f"\nGathering files in folder '{folder_name}'...", end="")
 
     if not destination_folder_structure:
         destination_folder_structure = [destination_folder_id]
@@ -113,7 +115,7 @@ def process_all_files(service, destination_folder_id, folder_id, folder_name=Non
                 break
 
         except HttpError as e:
-            print(f"An error occurred: {e}")
+            print(f"\nAn error occurred: {e}")
             break
 
     processed_folder_list.append(folder_id)
@@ -133,7 +135,9 @@ def main():
     service = get_drive_service()
     processed_folders = process_all_files(service, args.destination, args.folder)
     if BATCH:
+        print("\n\nExecuting final batch...", end=" ")
         BATCH.execute()
+        print("\nBatch execution finished.")
     remove_empty_folders(service, processed_folders)
 
 
