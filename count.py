@@ -22,7 +22,7 @@ def process_all_files(service, folder_id):
     while True:
         try:
             print(".", end="")
-            items = service.files().list(q=f"'{folder_id}' in parents",
+            items = service.files().list(q=f"'{folder_id}' in parents and not trashed",
                                          fields="files(id, mimeType, owners), nextPageToken",
                                          pageToken=next_page_token).execute()
             for item in items["files"]:
